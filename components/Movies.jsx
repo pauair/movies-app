@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Button, FlatList, Text, TextInput, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Loading from "./Loading";
+import React, { useEffect, useState } from 'react';
+import { Button, FlatList, Text, TextInput, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Loading from './Loading';
 
 import {
     fetchAllMovies,
     fetchWatchProviders,
     searchMovieByName,
-} from "../lib/api-movies";
-import MovieCard from "./MovieCard";
+} from '../lib/api-movies';
+import MovieCard from './MovieCard';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState('');
     const insets = useSafeAreaInsets();
 
     useEffect(() => {
@@ -50,16 +50,19 @@ const Movies = () => {
 
     return (
         <View
-            className='pl-2 pr-2'
+            className='pl-2 pr-2 items-center'
             style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}
         >
-            <Text className='text-5xl pt-6'>Movies</Text>
-            <TextInput
+            <Text className='text-5xl pt-8 font-bold'>MOVIES</Text>
+            <View className='flex-row items-center justify-center p-4'>
+              <TextInput
                 placeholder='Search movie...'
                 value={query}
                 onChangeText={setQuery}
-            />
-            <Button title='Search' onPress={handleSearch} disabled={query===''}/>
+                className='py-2 mx-2 w-2/3 rounded-xl border-b-2 border-blue-300 text-center'
+              />
+            <Button className='rounded-xl py-2 mx-2 w-1/3' title='Search' onPress={handleSearch} disabled={query===''}/>
+            </View>
             <FlatList
                 data={movies}
                 keyExtractor={(item) => item.id.toString()}

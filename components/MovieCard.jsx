@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, Image } from "react-native";
-import MovieProvider from "./MovieProvider";
+import React from 'react';
+import { View, Text, Image } from 'react-native';
+import MovieProvider from './MovieProvider';
 
 const MovieCard = ({ movie }) => {
     return (
