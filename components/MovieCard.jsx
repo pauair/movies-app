@@ -1,25 +1,77 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Image, Text, View } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import {
+    Animated,
+    ImageBackground,
+    Pressable,
+    Text,
+    View,
+    Button,
+} from "react-native";
 import MovieProvider from "./MovieProvider";
+import { Link } from "expo-router";
 
 export function MovieCard({ movie }) {
+    const [isTextVisible, setIsTextVisible] = useState(false);
+
+    const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
+
     return (
-        <View key={movie.title} className='items-center pt-4'>
-            {movie.poster_path && (
-                <Image
-                    alt={movie.title}
-                    source={{
-                        uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
-                    }}
-                    style={{ width: 225, height: 360 }}
-                />
-            )}
-            <View className='items-center p-4'>
-                <Text className='text-2xl font-extrabold'>{movie.title}</Text>
-                <Text className='text-base pt-2'>{movie.overview}</Text>
-                {movie.providers && movie.providers.US && (
-                    <MovieProvider movie={movie} />
+        <View key={movie.title} className='items-center p-2 m-6 bg-zinc-950'>
+            <Pressable
+                onPressIn={switchTextVisibility}
+                onPressOut={switchTextVisibility}
+            >
+                {movie.poster_path && (
+                    <ImageBackground
+                        alt={movie.title}
+                        source={{
+                            uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                        }}
+                        style={{ width: 330, height: 480 }}
+                    >
+                        {isTextVisible && (
+                            <View
+                                style={{
+                                    width: 330,
+                                    height: 480,
+                                    textAlign: "center",
+                                }}
+                                className='p-6 opacity-80 bg-black flex-col'
+                            >
+                                <Text className='text-4xl py-6 font-black text-white'>
+                                    {movie.title}
+                                </Text>
+                                <Text
+                                    overflow='hidden'
+                                    className='text-xl font-bold text-white'
+                                >
+                                    {movie.overview.slice(0, 250)}...
+                                </Text>
+                                <View className='pt-4 flex-row justify-center'>
+                                    {movie.providers && movie.providers.US && (
+                                        <MovieProvider movie={movie} />
+                                    )}
+                                </View>
+                            </View>
+                        )}
+                    </ImageBackground>
                 )}
+            </Pressable>
+            <View className='flex-row justify-center'>
+                <View className='m-4'>
+                    <Link asChild href='/'> 
+                        <Pressable className='rounded-md bg-white p-2' >
+                            <Text className='text-base'> Add to watch list ♥</Text>
+                        </Pressable>
+                    </Link>
+                </View>
+                <View className='m-4'>
+                    <Link asChild href='/about'> 
+                        <Pressable className='rounded-md bg-green-800 p-2' >
+                            <Text className='text-base text-white'>View More</Text>
+                        </Pressable>
+                    </Link>
+                </View>
             </View>
         </View>
     );
