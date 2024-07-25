@@ -1,7 +1,6 @@
-import React from "react";
-import { View, Text, Image, Animated } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Animated, Image, Text, View } from "react-native";
 import MovieProvider from "./MovieProvider";
-import { useEffect, useRef } from "react";
 
 export function MovieCard({ movie }) {
     return (

@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, FlatList, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { fetchAllMovies, fetchWatchProviders, searchMovieByName } from '../lib/api-movies';
 import Loading from './Loading';
 import { AnimatedMovieCard } from './MovieCard';
-
-import {
-  fetchAllMovies,
-  fetchWatchProviders,
-  searchMovieByName,
-} from '../lib/api-movies';
 
 
 const Movies = () => {
