@@ -1,11 +1,13 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
+import MovieProvider from "./MovieProvider";
 
 const MovieCard = ({ movie }) => {
     return (
         <View className='items-center pt-4'>
             {movie.poster_path && (
                 <Image
+                    alt={movie.title}
                     source={{
                         uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                     }}
@@ -16,19 +18,7 @@ const MovieCard = ({ movie }) => {
                 <Text className='text-2xl font-extrabold'>{movie.title}</Text>
                 <Text className='text-base pt-2'>{movie.overview}</Text>
                 {movie.providers && movie.providers.US && (
-                    <View>
-                        {movie.providers.US.flatrate &&
-                            movie.providers.US.flatrate.map(
-                                (provider, index) => (
-                                    <Text
-                                        key={index}
-                                        className='text-purple-800'
-                                    >
-                                        {provider.provider_name}
-                                    </Text>
-                                )
-                            )}
-                    </View>
+                    <MovieProvider movie={movie} />
                 )}
             </View>
         </View>
