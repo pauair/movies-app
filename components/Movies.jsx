@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, FlatList, Text, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Loading from './Loading';
+import { AnimatedMovieCard } from './MovieCard';
 
 import {
-    fetchAllMovies,
-    fetchWatchProviders,
-    searchMovieByName,
+  fetchAllMovies,
+  fetchWatchProviders,
+  searchMovieByName,
 } from '../lib/api-movies';
-import MovieCard from './MovieCard';
+
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
@@ -66,7 +67,9 @@ const Movies = () => {
             <FlatList
                 data={movies}
                 keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => <MovieCard movie={item} />}
+                renderItem={({ item, index }) => (
+                  <AnimatedMovieCard movie={item} index={index} />
+                )}
             />
         </View>
     );

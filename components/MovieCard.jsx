@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
-import MovieProvider from './MovieProvider';
+import React from "react";
+import { View, Text, Image, Animated } from "react-native";
+import MovieProvider from "./MovieProvider";
+import { useEffect, useRef } from "react";
 
-const MovieCard = ({ movie }) => {
+export function MovieCard({ movie }) {
     return (
-        <View className='items-center pt-4'>
+        <View key={movie.title} className='items-center pt-4'>
             {movie.poster_path && (
                 <Image
                     alt={movie.title}
@@ -23,6 +24,23 @@ const MovieCard = ({ movie }) => {
             </View>
         </View>
     );
-};
+}
 
-export default MovieCard;
+export function AnimatedMovieCard({ movie, index }) {
+    const opacity = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(opacity, {
+            toValue: 1,
+            duration: 1000,
+            delay: index * 500,
+            useNativeDriver: true,
+        }).start();
+    }, [opacity, index]);
+
+    return (
+        <Animated.View style={{ opacity }}>
+            <MovieCard movie={movie} />
+        </Animated.View>
+    );
+}
