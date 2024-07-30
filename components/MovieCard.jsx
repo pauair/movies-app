@@ -1,16 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-    Animated,
-    ImageBackground,
-    Pressable,
-    Text,
-    View,
-    Button,
-} from "react-native";
+import { Animated, ImageBackground, Pressable, Text, View } from "react-native";
 import MovieProvider from "./MovieProvider";
 import { Link } from "expo-router";
 
 export function MovieCard({ movie }) {
+
     const [isTextVisible, setIsTextVisible] = useState(false);
 
     const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
@@ -57,20 +51,27 @@ export function MovieCard({ movie }) {
                     </ImageBackground>
                 )}
             </Pressable>
-            <View className='flex-row justify-center'>
+            <View key={movie.title} className='flex-row justify-center'>
                 <View className='m-4'>
-                    <Link asChild href='/'> 
-                        <Pressable className='rounded-md bg-white p-2' >
-                            <Text className='text-base'> Add to watch list ♥</Text>
+                    <Link asChild href='/'>
+                        <Pressable className='rounded-md bg-white p-2'>
+                            <Text className='text-base'>
+                                {" "}
+                                Add to watch list ♥
+                            </Text>
                         </Pressable>
                     </Link>
                 </View>
-                <View className='m-4'>
-                    <Link asChild href='/about'> 
-                        <Pressable className='rounded-md bg-green-800 p-2' >
-                            <Text className='text-base text-white'>View More</Text>
-                        </Pressable>
-                    </Link>
+                <View key={movie.title} className='m-4'>
+                    {movie.id && (
+                        <Link asChild href={`/${movie.id}`}>
+                            <Pressable className='rounded-md bg-green-800 p-2'>
+                                <Text className='text-base text-white'>
+                                    View More
+                                </Text>
+                            </Pressable>
+                        </Link>
+                    )}
                 </View>
             </View>
         </View>
