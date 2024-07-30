@@ -85,7 +85,7 @@ export function AnimatedMovieCard({ movie, index }) {
         Animated.timing(opacity, {
             toValue: 1,
             duration: 1000,
-            delay: index * 500,
+            delay: index * 300,
             useNativeDriver: true,
         }).start();
     }, [opacity, index]);
