@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, FlatList, Text, TextInput, View } from "react-native";
+import { Button, FlatList, TextInput, View } from "react-native";
 import {
     fetchAllMovies,
     fetchWatchProviders,

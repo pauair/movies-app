@@ -13,9 +13,9 @@ export default function Layout() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold',
-                        fontSize: 48,
+                        fontSize: 36,
                     },
-                    headerTitle: 'Movies',
+                    headerTitle: 'Movie App',
                     headerTitleAlign: 'center',
 
                 }}
