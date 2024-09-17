@@ -14,13 +14,13 @@ export function MovieCard({ movie }) {
                 onPressIn={switchTextVisibility}
                 onPressOut={switchTextVisibility}
             >
-                {movie.poster_path && (
+                {(
                     <ImageBackground
                         alt={movie.title}
                         source={{
                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                         }}
-                        style={{ width: 330, height: 480 }}
+                        style={{ width: 330, height: 480, backgroundColor: 'grey'}}
                     >
                         {isTextVisible && (
                             <View
