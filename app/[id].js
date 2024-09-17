@@ -1,10 +1,11 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
-import Loading from "../components/Loading";
-import MovieProvider from "../components/MovieProvider";
-import { fetchWatchProviders, searchMovieById } from "../lib/api-movies";
-import { ScrollView } from "react-native";
+import { Stack, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
+import Loading from '../components/Loading';
+import MovieProvider from '../components/MovieProvider';
+import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
+import { ScrollView } from 'react-native';
+import MovieRecommendations from '../components/MovieRecommendations';
 
 export default function MovieCardDetail() {
     const params = useLocalSearchParams();
@@ -21,10 +22,10 @@ export default function MovieCardDetail() {
                     data.providers = await fetchWatchProviders(data.id);
                     setMovie(data);
                 } else {
-                    console.error("No movie data found");
+                    console.error('No movie data found');
                 }
             } catch (error) {
-                console.error("Error fetching movie:", error);
+                console.error('Error fetching movie:', error);
             } finally {
                 setLoading(false);
             }
@@ -50,8 +51,8 @@ export default function MovieCardDetail() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const options = { day: "2-digit", month: "long", year: "numeric" };
-        return date.toLocaleDateString("en-US", options);
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
     };
 
     return (
@@ -61,9 +62,9 @@ export default function MovieCardDetail() {
         >
             <Stack.Screen
                 options={{
-                    headerTitle: "",
+                    headerTitle: '',
                     headerStyle: {
-                        backgroundColor: "transparent",
+                        backgroundColor: 'transparent',
                     },
                     headerTransparent: true,
                 }}
@@ -111,7 +112,7 @@ export default function MovieCardDetail() {
                             width: 320,
                             height: 440,
                             borderRadius: 15,
-                            alignSelf: "center",
+                            alignSelf: 'center',
                         }}
                     ></Image>
                 </Pressable>
@@ -150,6 +151,7 @@ export default function MovieCardDetail() {
                         </Text>
                     )}
                 </View>
+                {<MovieRecommendations movieId = {movie.id} />}
             </ScrollView>
         </View>
     );

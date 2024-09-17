@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Animated, ImageBackground, Pressable, Text, View } from "react-native";
-import MovieProvider from "./MovieProvider";
-import { Link } from "expo-router";
+import React, { useEffect, useState, useRef } from 'react';
+import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
+import MovieProvider from './MovieProvider';
+import { Link } from 'expo-router';
 
 export function MovieCard({ movie }) {
-
     const [isTextVisible, setIsTextVisible] = useState(false);
 
     const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
@@ -28,7 +27,7 @@ export function MovieCard({ movie }) {
                                 style={{
                                     width: 330,
                                     height: 480,
-                                    textAlign: "center",
+                                    textAlign: 'center',
                                 }}
                                 className='p-6 opacity-80 bg-black flex-col'
                             >
