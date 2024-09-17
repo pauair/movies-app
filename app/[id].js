@@ -103,7 +103,7 @@ export default function MovieCardDetail() {
                             </Text>
                         </View>
                     )}
-                    <Image
+                    <Image className='text-white'
                         alt={movie.title}
                         source={{
                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
@@ -113,6 +113,7 @@ export default function MovieCardDetail() {
                             height: 440,
                             borderRadius: 15,
                             alignSelf: 'center',
+                            backgroundColor: 'grey',
                         }}
                     ></Image>
                 </Pressable>

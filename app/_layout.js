@@ -15,7 +15,7 @@ export default function Layout() {
                         fontWeight: 'bold',
                         fontSize: 36,
                     },
-                    headerTitle: 'Movie App',
+                    headerTitle: 'MoviesApp',
                     headerTitleAlign: 'center',
 
                 }}
