@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
 import MovieProvider from './MovieProvider';
 import { Link } from 'expo-router';
+import { AddToList } from './AddToWatchList';
 
 export function MovieCard({ movie }) {
     const [isTextVisible, setIsTextVisible] = useState(false);
@@ -53,9 +54,8 @@ export function MovieCard({ movie }) {
             <View key={movie.title} className='flex-row justify-center'>
                 <View className='m-4'>
                     <Link asChild href='/'>
-                        <Pressable className='rounded-md bg-white p-2'>
+                        <Pressable className='rounded-md bg-white p-2' onPress={() => AddToList(movie)}>
                             <Text className='text-base'>
-                                {" "}
                                 Add to watch list ♥
                             </Text>
                         </Pressable>

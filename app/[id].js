@@ -1,11 +1,12 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
-import Loading from '../components/Loading';
-import MovieProvider from '../components/MovieProvider';
-import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
-import { ScrollView } from 'react-native';
-import MovieRecommendations from '../components/MovieRecommendations';
+import { Stack, useLocalSearchParams } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { Image, Pressable, Text, View } from "react-native";
+import Loading from "../components/Loading";
+import MovieProvider from "../components/MovieProvider";
+import { fetchWatchProviders, searchMovieById } from "../lib/api-movies";
+import { ScrollView } from "react-native";
+import MovieRecommendations from "../components/MovieRecommendations";
+import { AddToWatchList } from "../components/AddToWatchList";
 
 export default function MovieCardDetail() {
     const params = useLocalSearchParams();
@@ -22,10 +23,10 @@ export default function MovieCardDetail() {
                     data.providers = await fetchWatchProviders(data.id);
                     setMovie(data);
                 } else {
-                    console.error('No movie data found');
+                    console.error("No movie data found");
                 }
             } catch (error) {
-                console.error('Error fetching movie:', error);
+                console.error("Error fetching movie:", error);
             } finally {
                 setLoading(false);
             }
@@ -51,8 +52,8 @@ export default function MovieCardDetail() {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        const options = { day: '2-digit', month: 'long', year: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        return date.toLocaleDateString("en-US", options);
     };
 
     return (
@@ -62,9 +63,9 @@ export default function MovieCardDetail() {
         >
             <Stack.Screen
                 options={{
-                    headerTitle: '',
+                    headerTitle: "",
                     headerStyle: {
-                        backgroundColor: 'transparent',
+                        backgroundColor: "transparent",
                     },
                     headerTransparent: true,
                     headerRight: () => null,
@@ -72,11 +73,13 @@ export default function MovieCardDetail() {
             />
             <ScrollView>
                 {
-                    <Text className='text-3xl m-4 p-6 font-normal text-center text-white'>
-                        {movie.title}
-                    </Text>
+                    <View className='flex-row justify-center'>
+                        <Text className='text-3xl m-4 p-6 font-normal text-center text-white'>
+                            {movie.title}
+                        </Text>
+                    </View>
                 }
-                
+
                 <Pressable
                     style={{
                         width: 380,
@@ -86,7 +89,7 @@ export default function MovieCardDetail() {
                     onPressOut={switchTextVisibility}
                 >
                     {!isTextVisible ? (
-                        <View className='border-r-4 bg-lime-600 border-white absolute z-10 mx-4 rounded-full w-24 h-24 items-center justify-center'>
+                        <View className='border-r-4 bg-lime-600 border-white absolute z-10 mx-1 rounded-full w-24 h-24 items-center justify-center'>
                             <Text className='text-base font-bold text-center text-white'>
                                 Rating:
                             </Text>
@@ -95,7 +98,7 @@ export default function MovieCardDetail() {
                             </Text>
                         </View>
                     ) : (
-                        <View className='bg-lime-600 border-r-4 border-white absolute z-10 mx-4 rounded-full w-24 h-24 items-center justify-center'>
+                        <View className='bg-zinc-900 border-r-4 border-white absolute z-10 mx-1 rounded-full w-24 h-24 items-center justify-center'>
                             <Text className='text-base font-bold text-center text-white'>
                                 Votes:
                             </Text>
@@ -104,28 +107,31 @@ export default function MovieCardDetail() {
                             </Text>
                         </View>
                     )}
-                    <Image className='text-white'
+                    <Image
+                        className='text-white'
                         alt={movie.title}
                         source={{
                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                         }}
                         style={{
-                            width: 320,
+                            width: 315,
                             height: 440,
-                            borderRadius: 15,
-                            alignSelf: 'center',
-                            backgroundColor: 'grey',
+                            borderRadius: 16,
+                            alignSelf: "center",
+                            backgroundColor: "grey",
                         }}
                     ></Image>
                 </Pressable>
-                
+                <View className='absolute ml-72 mt-32'>
+                    <AddToWatchList movie={movie}/>
+                </View>
                 <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-lg border-b border-zinc-200'>
                     {movie.tagline}
                 </Text>
                 <Text className='text-base font-light p-2 text-white text-center'>
                     Release date: {formatDate(movie.release_date)}
                 </Text>
-                
+
                 <View className='p-8 mt-2'>
                     <Text className='pb-2 text-xl font-medium text-white'>
                         Description:
@@ -153,7 +159,7 @@ export default function MovieCardDetail() {
                         </Text>
                     )}
                 </View>
-                {<MovieRecommendations movieId = {movie.id} />}
+                {<MovieRecommendations movieId={movie.id} />}
             </ScrollView>
         </View>
     );
