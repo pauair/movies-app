@@ -67,6 +67,7 @@ export default function MovieCardDetail() {
                         backgroundColor: 'transparent',
                     },
                     headerTransparent: true,
+                    headerRight: () => null,
                 }}
             />
             <ScrollView>

@@ -1,10 +1,27 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
+import Icon from 'react-native-vector-icons/FontAwesome6';
 
 export default function Layout() {
+
+    const router = useRouter();
+
+    const WatchListButton = () => (
+        <Icon.Button
+            name='heart-circle-check'
+            size={30}
+            color='red'
+            backgroundColor='white'
+            borderRadius={15}
+            onPress={() => router.push('/watchList')}
+            style={{ marginRight: 0, borderColor: '#c7246a', border: 3 }}
+            iconStyle={{ marginRight: 0 }}
+        />
+    );
+
     return (
-        <View className='bg-black h-full'>
+        <View className='bg-black h-full pt-4'>
             <Stack
                 screenOptions={{
                     headerStyle: {
@@ -13,11 +30,15 @@ export default function Layout() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold',
-                        fontSize: 36,
+                        fontSize: 34,
                     },
-                    headerTitle: 'MoviesApp',
-                    headerTitleAlign: 'center',
-
+                    headerTitle: '  MoviesApp',
+                    headerRight: () => (
+                        <View style={{ margin: 10 }}>
+                            <WatchListButton />
+                        </View>
+                    ),
+                    headerTitleAlign: 'left',
                 }}
             />
         </View>
