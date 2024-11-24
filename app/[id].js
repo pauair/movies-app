@@ -128,7 +128,7 @@ export default function MovieCardDetail() {
                         }}
                     ></Image>
                 </Pressable>
-                <View className='absolute ml-72 mt-32'>
+                <View className='absolute ml-72 mt-2'>
                     <AddToWatchList movie={movie} />
                 </View>
                 <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-lg border-b border-zinc-200'>

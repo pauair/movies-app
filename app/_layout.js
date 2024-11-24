@@ -12,8 +12,8 @@ export default function Layout() {
         <Icon.Button
             name='heart-circle-check'
             size={30}
-            color='red'
-            backgroundColor='white'
+            color='#8b5cf6'
+            backgroundColor='black'
             borderRadius={15}
             onPress={() => router.push('/watchList')}
             style={{ marginRight: 0, borderColor: '#c7246a', border: 3 }}
@@ -32,14 +32,15 @@ export default function Layout() {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                         fontWeight: 'bold',
-                        fontSize: 34,
+                        fontSize: 30,
                     },
-                    headerTitle: '  MoviesApp',
+                    headerTitle: ' FilmTracker',
                     headerRight: () => (
                         <View style={{ margin: 10 }}>
                             <WatchListButton />
                         </View>
                     ),
+                    headerLeft: () => null,
                     headerTitleAlign: 'left',
                 }}
             />

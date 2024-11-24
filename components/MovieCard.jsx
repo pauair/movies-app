@@ -3,6 +3,7 @@ import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
 import MovieProvider from './MovieProvider';
 import { Link } from 'expo-router';
 import { useWatchList } from './WatchListContext';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export function MovieCard({ movie }) {
     const [isTextVisible, setIsTextVisible] = useState(false);
@@ -66,14 +67,14 @@ export function MovieCard({ movie }) {
                     onPress={() => toggleWatchList(movie) && setAddWatchListButton(!addWatchListButton)}
                 >
                     <Text className="text-base">
-                        { addWatchListButton ? <Text className='text-white'>Remove from watch list</Text> : 'Add to watch list ♥'}
+                        { addWatchListButton ? <Text className='text-white'>Remove from watch list</Text> : <><Text>Add to watch list <Icon name='heart' size={18} color='#8b5cf6' backgroundColor='transparent'/></Text></>}
                     </Text>
                 </Pressable>
                 </View>
                 <View className='m-4'>
                     {movie.id && (
                         <Link asChild href={`/${movie.id}`}>
-                            <Pressable className='rounded-md bg-green-800 p-2'>
+                            <Pressable className='rounded-md bg-violet-500 p-2'>
                                 <Text className='text-base text-white'>
                                     View More
                                 </Text>

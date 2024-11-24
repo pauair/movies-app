@@ -11,9 +11,9 @@ const AddToWatchList = ({ movie }) => {
         <Icon.Button
             name='heart-o'
             size={36}
-            color='red'
+            color='#8b5cf6'
             backgroundColor='white'
-            borderRadius={15}
+            borderRadius={90}
             onPress={() => {
                 addToList(movie);
                 setRemoveButton(true);
@@ -27,9 +27,9 @@ const AddToWatchList = ({ movie }) => {
         <Icon.Button
             name='heart'
             size={36}
-            color='red'
+            color='#8b5cf6'
             backgroundColor='white'
-            borderRadius={15}
+            borderRadius={90}
             onPress={() => {
                 removeFromList(movie);
                 setRemoveButton(false);
