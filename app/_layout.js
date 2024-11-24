@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome6';
+import { WatchListProvider } from '../components/WatchListContext';
 
 export default function Layout() {
 
@@ -21,6 +22,7 @@ export default function Layout() {
     );
 
     return (
+        <WatchListProvider>
         <View className='bg-black h-full pt-4'>
             <Stack
                 screenOptions={{
@@ -42,5 +44,6 @@ export default function Layout() {
                 }}
             />
         </View>
+        </WatchListProvider>
     );
 }

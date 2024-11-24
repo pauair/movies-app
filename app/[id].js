@@ -6,7 +6,7 @@ import MovieProvider from "../components/MovieProvider";
 import { fetchWatchProviders, searchMovieById } from "../lib/api-movies";
 import { ScrollView } from "react-native";
 import MovieRecommendations from "../components/MovieRecommendations";
-import { AddToWatchList } from "../components/AddToWatchList";
+import AddToWatchList from '../components/AddToWatchList';
 
 export default function MovieCardDetail() {
     const params = useLocalSearchParams();
