@@ -2,12 +2,18 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
 import MovieProvider from './MovieProvider';
 import { Link } from 'expo-router';
-import { AddToList } from './AddToWatchList';
+import { useWatchList } from './WatchListContext';
 
 export function MovieCard({ movie }) {
     const [isTextVisible, setIsTextVisible] = useState(false);
+    const { isMovieInWatchList, toggleWatchList } = useWatchList();
+    const [addWatchListButton, setAddWatchListButton] = useState(isMovieInWatchList(movie));
 
     const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
+
+    useEffect(() => {
+        setAddWatchListButton(isMovieInWatchList(movie));
+    }, [isMovieInWatchList, movie]);
 
     return (
         <View key={movie.title} className='items-center p-2 m-6 bg-zinc-950'>
@@ -51,17 +57,20 @@ export function MovieCard({ movie }) {
                     </ImageBackground>
                 )}
             </Pressable>
-            <View key={movie.title} className='flex-row justify-center'>
+            <View className='flex-row justify-center'>
                 <View className='m-4'>
-                    <Link asChild href='/'>
-                        <Pressable className='rounded-md bg-white p-2' onPress={() => AddToList(movie)}>
-                            <Text className='text-base'>
-                                Add to watch list ♥
-                            </Text>
-                        </Pressable>
-                    </Link>
+                <Pressable
+                    className={`rounded-md p-2 ${
+                        addWatchListButton ? 'bg-red-900' : 'bg-white'
+                    }`}
+                    onPress={() => toggleWatchList(movie) && setAddWatchListButton(!addWatchListButton)}
+                >
+                    <Text className="text-base">
+                        { addWatchListButton ? <Text className='text-white'>Remove from watch list</Text> : 'Add to watch list ♥'}
+                    </Text>
+                </Pressable>
                 </View>
-                <View key={movie.title} className='m-4'>
+                <View className='m-4'>
                     {movie.id && (
                         <Link asChild href={`/${movie.id}`}>
                             <Pressable className='rounded-md bg-green-800 p-2'>

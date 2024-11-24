@@ -1,17 +1,11 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import { View } from "react-native";
-import { useState } from "react";
+import { useState} from "react";
+import { useWatchList } from "./WatchListContext";
 
-export function AddToList(movie) {
-    console.log("Adding to watch list: ", movie);
-}
-
-export function RemoveFromList(movie) {
-    console.log("Removing from watch list: ", movie);
-}
-
-export function AddToWatchList(movie) {
-    const [removeButton, setRemoveButton] = useState(false);
+const AddToWatchList = ({ movie }) => {
+    const { addToList, removeFromList, isMovieInWatchList } = useWatchList();
+    const [removeButton, setRemoveButton] = useState(isMovieInWatchList(movie));
 
     const AddToWatchListButton = () => (
         <Icon.Button
@@ -21,7 +15,7 @@ export function AddToWatchList(movie) {
             backgroundColor='white'
             borderRadius={15}
             onPress={() => {
-                AddToList(movie);
+                addToList(movie);
                 setRemoveButton(true);
             }}
             style={{ marginRight: 0 }}
@@ -37,7 +31,7 @@ export function AddToWatchList(movie) {
             backgroundColor='white'
             borderRadius={15}
             onPress={() => {
-                RemoveFromList(movie);
+                removeFromList(movie);
                 setRemoveButton(false);
             }}
             style={{ marginRight: 0 }}
@@ -50,4 +44,6 @@ export function AddToWatchList(movie) {
             {!removeButton ? <AddToWatchListButton /> : <RemoveFromWatchListButton />}
         </View>
     );
-}
+};
+
+export default AddToWatchList;
