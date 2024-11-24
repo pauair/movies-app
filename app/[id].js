@@ -1,19 +1,21 @@
-import { Stack, useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
-import Loading from "../components/Loading";
-import MovieProvider from "../components/MovieProvider";
-import { fetchWatchProviders, searchMovieById } from "../lib/api-movies";
-import { ScrollView } from "react-native";
-import MovieRecommendations from "../components/MovieRecommendations";
+import { Stack, useLocalSearchParams } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { Image, Pressable, Text, View } from 'react-native';
+import Loading from '../components/Loading';
+import MovieProvider from '../components/MovieProvider';
+import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
+import { ScrollView } from 'react-native';
+import MovieRecommendations from '../components/MovieRecommendations';
 import AddToWatchList from '../components/AddToWatchList';
 
 export default function MovieCardDetail() {
     const params = useLocalSearchParams();
     const { id } = params;
+
     const [movie, setMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isTextVisible, setIsTextVisible] = useState(false);
+    const [isHeaderVisible, setHeaderVisible] = useState(true);
 
     useEffect(() => {
         const getMovie = async () => {
@@ -23,16 +25,29 @@ export default function MovieCardDetail() {
                     data.providers = await fetchWatchProviders(data.id);
                     setMovie(data);
                 } else {
-                    console.error("No movie data found");
+                    console.error('No movie data found');
                 }
             } catch (error) {
-                console.error("Error fetching movie:", error);
+                console.error('Error fetching movie:', error);
             } finally {
                 setLoading(false);
             }
         };
         getMovie();
     }, [id]);
+
+    const handleScroll = (event) => {
+        const scrollOffsetY = event.nativeEvent.contentOffset.y;
+        setHeaderVisible(scrollOffsetY <= 10);
+    };
+
+    const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    };
 
     if (loading) {
         return <Loading />;
@@ -48,14 +63,6 @@ export default function MovieCardDetail() {
         );
     }
 
-    const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
-
-    const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const options = { day: "2-digit", month: "long", year: "numeric" };
-        return date.toLocaleDateString("en-US", options);
-    };
-
     return (
         <View
             key={id}
@@ -63,23 +70,22 @@ export default function MovieCardDetail() {
         >
             <Stack.Screen
                 options={{
-                    headerTitle: "",
+                    headerTitle: movie.title,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        color: 'white',
+                        fontSize: 26,
+                        fontWeight: 'bold',
+                    },
                     headerStyle: {
-                        backgroundColor: "transparent",
+                        backgroundColor: 'transparent',
                     },
                     headerTransparent: true,
                     headerRight: () => null,
+                    headerShown: isHeaderVisible,
                 }}
             />
-            <ScrollView>
-                {
-                    <View className='flex-row justify-center'>
-                        <Text className='text-3xl m-4 p-6 font-normal text-center text-white'>
-                            {movie.title}
-                        </Text>
-                    </View>
-                }
-
+            <ScrollView className='pt-12' onScroll={handleScroll}>
                 <Pressable
                     style={{
                         width: 380,
@@ -117,13 +123,13 @@ export default function MovieCardDetail() {
                             width: 315,
                             height: 440,
                             borderRadius: 16,
-                            alignSelf: "center",
-                            backgroundColor: "grey",
+                            alignSelf: 'center',
+                            backgroundColor: 'grey',
                         }}
                     ></Image>
                 </Pressable>
                 <View className='absolute ml-72 mt-32'>
-                    <AddToWatchList movie={movie}/>
+                    <AddToWatchList movie={movie} />
                 </View>
                 <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-lg border-b border-zinc-200'>
                     {movie.tagline}
