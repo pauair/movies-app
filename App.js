@@ -6,7 +6,13 @@ import Movies from './components/Movies';
 export default function App() {
     return (
         <SafeAreaProvider>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
                 <StatusBar style='auto' />
                 <Movies />
             </View>

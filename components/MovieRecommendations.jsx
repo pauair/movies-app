@@ -1,8 +1,8 @@
-import { fetchMovieRecommendations } from "../lib/api-movies";
-import { useState, useEffect } from "react";
-import Loading from "../components/Loading";
-import { FlatList, View, Text, Image } from "react-native";
-import { Link } from "expo-router";
+import { Link } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { FlatList, Image, Text, View } from 'react-native';
+import Loading from '../components/Loading';
+import { fetchMovieRecommendations } from '../lib/api-movies';
 
 const MovieRecommendations = ({ movieId }) => {
     const [movies, setMovies] = useState([]);

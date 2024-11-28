@@ -1,12 +1,11 @@
 import { Stack, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
+import AddToWatchList from '../components/AddToWatchList';
 import Loading from '../components/Loading';
 import MovieProvider from '../components/MovieProvider';
-import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
-import { ScrollView } from 'react-native';
 import MovieRecommendations from '../components/MovieRecommendations';
-import AddToWatchList from '../components/AddToWatchList';
+import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
 
 export default function MovieCardDetail() {
     const params = useLocalSearchParams();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, TextInput, View } from 'react-native';
+import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import {
     fetchAllMovies,
     fetchWatchProviders,
@@ -47,28 +47,34 @@ const Movies = () => {
 
     return (
         <View className='pl-2 pr-2 items-center bg-black'>
-            <View className='flex-row items-center justify-center p-4'>
+            <View className='flex-row items-center justify-center p-2'>
                 <TextInput
                     placeholder='Search for movie or actor'
+                    placeholderTextColor={'grey'}
                     value={query}
                     onChangeText={setQuery}
-                    className='py-2 mx-2 w-2/3 border-b-2 border-white text-center text-white'
+                    className='py-2 mx-2 w-2/3 text-center text-white'
+                    style={{ borderBottomColor: 'grey', borderBottomWidth: 1 }}
                 />
-                <Button
-                    className='rounded-xl py-2 mx-2 w-1/3'
-                    title='Search'
+                <Pressable
+                    className='rounded-md bg-white p-2'
                     onPress={handleSearch}
                     disabled={query === ''}
+                >
+                    <Text className='text-sm font-medium text-violet-900'>
+                        SEARCH
+                    </Text>
+                </Pressable>
+            </View>
+            <View className='pl-2 pr-2 items-center bg-black'>
+                <FlatList
+                    data={movies}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item, index }) => (
+                        <AnimatedMovieCard movie={item} index={index} />
+                    )}
                 />
             </View>
-            
-            <FlatList
-                data={movies}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item, index }) => (
-                    <AnimatedMovieCard movie={item} index={index} />
-                )}
-            />
         </View>
     );
 };

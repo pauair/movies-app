@@ -1,7 +1,7 @@
-import Icon from "react-native-vector-icons/FontAwesome";
-import { View } from "react-native";
-import { useState} from "react";
-import { useWatchList } from "./WatchListContext";
+import { useState } from 'react';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useWatchList } from './WatchListContext';
 
 const AddToWatchList = ({ movie }) => {
     const { addToList, removeFromList, isMovieInWatchList } = useWatchList();
@@ -41,7 +41,11 @@ const AddToWatchList = ({ movie }) => {
 
     return (
         <View className='items-center justify-center'>
-            {!removeButton ? <AddToWatchListButton /> : <RemoveFromWatchListButton />}
+            {!removeButton ? (
+                <AddToWatchListButton />
+            ) : (
+                <RemoveFromWatchListButton />
+            )}
         </View>
     );
 };

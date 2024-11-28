@@ -1,19 +1,19 @@
-import React from 'react';
 import { Link, Stack } from 'expo-router';
-import { useWatchList } from './WatchListContext';
+import React from 'react';
 import {
+    ImageBackground,
+    Pressable,
+    ScrollView,
     Text,
     View,
-    ImageBackground,
-    ScrollView,
-    Pressable,
 } from 'react-native';
 import IconMeh from 'react-native-vector-icons/AntDesign';
+import { useWatchList } from './WatchListContext';
 
 const WatchList = (watchList) => {
-
     const [isHeaderVisible, setHeaderVisible] = React.useState(true);
-    const { getWatchList, clearWatchList, getWatchListCount, removeFromList } = useWatchList();
+    const { getWatchList, clearWatchList, getWatchListCount, removeFromList } =
+        useWatchList();
 
     watchList = getWatchList();
     const isWatchListEmpty = getWatchListCount() === 0;
@@ -24,11 +24,17 @@ const WatchList = (watchList) => {
     };
 
     return (
-        <ScrollView onScroll={handleScroll} className='min-h-full min-w-full px-2 py-2 bg-black align-middle'>
+        <ScrollView
+            onScroll={handleScroll}
+            className='min-h-full min-w-full px-2 py-2 bg-black align-middle'
+        >
             <Stack.Screen
                 options={{
-                    headerTitle: () => 
-                        <Text className='text-white font-thin text-xl'>MY WATCHLIST</Text>,
+                    headerTitle: () => (
+                        <Text className='text-white font-thin text-xl'>
+                            MY WATCHLIST
+                        </Text>
+                    ),
                     headerTitleAlign: 'center',
                     headerStyle: {
                         backgroundColor: 'transparent',
@@ -41,12 +47,16 @@ const WatchList = (watchList) => {
             {!isWatchListEmpty && (
                 <View className='flex justify-center px-4 pt-12'>
                     <Text className='text-white font-medium text-center text-xl pt-6'>
-                        You have <Text className='font-bold text-violet-400'>{watchList.length}{' '}</Text>
+                        You have{' '}
+                        <Text className='font-bold text-violet-400'>
+                            {watchList.length}{' '}
+                        </Text>
                         {watchList.length === 1 ? 'item' : 'items'} in your
                         watchlist.
                     </Text>
                     <Text className='text-white font-light text-center text-base pt-2'>
-                        Press the image to view details or hold to remove the item.
+                        Press the image to view details or hold to remove the
+                        item.
                     </Text>
                 </View>
             )}
@@ -76,7 +86,9 @@ const WatchList = (watchList) => {
                     {watchList.map((movie, index) => (
                         <View key={index} className='py-1'>
                             <Link asChild href={`./${movie.id}`}>
-                                <Pressable onLongPress={()=>removeFromList(movie)}>
+                                <Pressable
+                                    onLongPress={() => removeFromList(movie)}
+                                >
                                     <ImageBackground
                                         alt={movie.title}
                                         source={{

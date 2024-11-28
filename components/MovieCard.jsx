@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
-import MovieProvider from './MovieProvider';
 import { Link } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MovieProvider from './MovieProvider';
 import { useWatchList } from './WatchListContext';
-import Icon from "react-native-vector-icons/FontAwesome";
 
 export function MovieCard({ movie }) {
     const [isTextVisible, setIsTextVisible] = useState(false);
     const { isMovieInWatchList, toggleWatchList } = useWatchList();
-    const [addWatchListButton, setAddWatchListButton] = useState(isMovieInWatchList(movie));
+    const [addWatchListButton, setAddWatchListButton] = useState(
+        isMovieInWatchList(movie)
+    );
 
     const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
 
@@ -22,13 +24,17 @@ export function MovieCard({ movie }) {
                 onPressIn={switchTextVisibility}
                 onPressOut={switchTextVisibility}
             >
-                {(
+                {
                     <ImageBackground
                         alt={movie.title}
                         source={{
                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                         }}
-                        style={{ width: 300, height: 450, backgroundColor: 'grey'}}
+                        style={{
+                            width: 300,
+                            height: 450,
+                            backgroundColor: 'grey',
+                        }}
                     >
                         {isTextVisible && (
                             <View
@@ -56,20 +62,39 @@ export function MovieCard({ movie }) {
                             </View>
                         )}
                     </ImageBackground>
-                )}
+                }
             </Pressable>
             <View className='flex-row justify-center'>
                 <View className='m-4'>
-                <Pressable
-                    className={`rounded-md p-2 ${
-                        addWatchListButton ? 'bg-red-900' : 'bg-white'
-                    }`}
-                    onPress={() => toggleWatchList(movie) && setAddWatchListButton(!addWatchListButton)}
-                >
-                    <Text className="text-base">
-                        { addWatchListButton ? <Text className='text-white'>Remove from watch list</Text> : <><Text>Add to watch list <Icon name='heart' size={18} color='#5b21b6'/*#8b5cf6*/ backgroundColor='transparent'/></Text></>}
-                    </Text>
-                </Pressable>
+                    <Pressable
+                        className={`rounded-md p-2 ${
+                            addWatchListButton ? 'bg-red-900' : 'bg-white'
+                        }`}
+                        onPress={() =>
+                            toggleWatchList(movie) &&
+                            setAddWatchListButton(!addWatchListButton)
+                        }
+                    >
+                        <Text className='text-base'>
+                            {addWatchListButton ? (
+                                <Text className='text-white'>
+                                    Remove from watch list
+                                </Text>
+                            ) : (
+                                <>
+                                    <Text>
+                                        Add to watch list{' '}
+                                        <Icon
+                                            name='heart'
+                                            size={18}
+                                            color='#5b21b6'
+                                            /*#8b5cf6*/ backgroundColor='transparent'
+                                        />
+                                    </Text>
+                                </>
+                            )}
+                        </Text>
+                    </Pressable>
                 </View>
                 <View className='m-4'>
                     {movie.id && (

@@ -1,11 +1,10 @@
+import { Stack, useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WatchListProvider } from '../components/WatchListContext';
 
 export default function Layout() {
-
     const router = useRouter();
 
     const WatchListButton = () => (
@@ -23,28 +22,28 @@ export default function Layout() {
 
     return (
         <WatchListProvider>
-        <View className='bg-black h-full pt-2'>
-            <Stack
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: '#000',
-                    },
-                    headerTintColor: '#fff',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 30,
-                    },
-                    headerTitle: ' FilmTracker',
-                    headerRight: () => (
-                        <View style={{ margin: 10 }}>
-                            <WatchListButton />
-                        </View>
-                    ),
-                    headerLeft: () => null,
-                    headerTitleAlign: 'left',
-                }}
-            />
-        </View>
+            <View className='bg-black h-full pt-2'>
+                <Stack
+                    screenOptions={{
+                        headerStyle: {
+                            backgroundColor: '#000',
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 30,
+                        },
+                        headerTitle: ' FilmTracker',
+                        headerRight: () => (
+                            <View style={{ margin: 10 }}>
+                                <WatchListButton />
+                            </View>
+                        ),
+                        headerLeft: () => null,
+                        headerTitleAlign: 'left',
+                    }}
+                />
+            </View>
         </WatchListProvider>
     );
 }
