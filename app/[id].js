@@ -98,7 +98,7 @@ export default function MovieCardDetail() {
                                 Rating:
                             </Text>
                             <Text className='text-4xl font-extrabold text-center text-white'>
-                                {movie.vote_average.toFixed(1)}
+                                {movie.vote_average && movie.vote_average.toFixed(1)}
                             </Text>
                         </View>
                     ) : (
@@ -107,7 +107,7 @@ export default function MovieCardDetail() {
                                 Votes:
                             </Text>
                             <Text className='text-3xl font-extrabold text-center text-white'>
-                                {movie.vote_count}
+                                {movie.vote_count && movie.vote_count}
                             </Text>
                         </View>
                     )}
@@ -130,10 +130,10 @@ export default function MovieCardDetail() {
                     <AddToWatchList movie={movie} />
                 </View>
                 <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-xl border-b border-zinc-200'>
-                    {movie.tagline}
+                    {movie.tagline && movie.tagline}
                 </Text>
                 <Text className='text-base font-light p-2 text-white text-center'>
-                    Release date: {formatDate(movie.release_date)}
+                    {movie.release_date && `Release date: ${formatDate(movie.release_date)}`}
                 </Text>
 
                 <View className='p-8 mt-2'>
@@ -141,11 +141,11 @@ export default function MovieCardDetail() {
                         Description:
                     </Text>
                     <Text className='text-xl font-light text-white'>
-                        {movie.overview}
+                        {movie.overview && movie.overview}
                     </Text>
                 </View>
                 <View className='flex-row flex-wrap p-2 text-white justify-center'>
-                    {movie.genres.map((genre) => (
+                    {movie.genres && movie.genres.map((genre) => (
                         <Text
                             key={genre.id}
                             className='p-2 text-base m-2 border border-violet-300 rounded-lg text-violet-300'

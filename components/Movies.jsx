@@ -12,6 +12,7 @@ const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [query, setQuery] = useState('');
+    const [isVisibleSearch, setIsVisibleSearch] = useState(true); 
 
     useEffect(() => {
         const getAllMovies = async () => {
@@ -45,9 +46,14 @@ const Movies = () => {
         return <Loading />;
     }
 
+    const handleSearchVisibility = (event) => {
+        const scrollOffsetY = event.nativeEvent.contentOffset.y;
+        setIsVisibleSearch(scrollOffsetY <= 180);
+    }
+
     return (
         <View className='pl-2 pr-2 items-center bg-black'>
-            <View className='flex-row items-center justify-center p-2'>
+            {isVisibleSearch && <View className='flex-row items-center justify-center p-2'>
                 <TextInput
                     placeholder='Search for movie or actor'
                     placeholderTextColor={'grey'}
@@ -65,9 +71,10 @@ const Movies = () => {
                         SEARCH
                     </Text>
                 </Pressable>
-            </View>
+            </View>}
             <View className='pl-2 pr-2 items-center bg-black'>
                 <FlatList
+                    onScroll={handleSearchVisibility}
                     data={movies}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item, index }) => (

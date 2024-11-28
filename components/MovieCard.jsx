@@ -45,14 +45,14 @@ export function MovieCard({ movie }) {
                                 }}
                                 className='p-6 opacity-80 bg-black flex-col'
                             >
-                                <Text className='text-4xl py-6 font-black text-white'>
+                                <Text className='text-4xl py-6 font-extrabold text-white'>
                                     {movie.title}
                                 </Text>
                                 <Text
                                     overflow='hidden'
-                                    className='text-xl font-bold text-white'
+                                    className='pr-6 text-lg font-normal text-white'
                                 >
-                                    {movie.overview.slice(0, 250)}...
+                                    {movie.overview && movie.overview.slice(0, 250)}
                                 </Text>
                                 <View className='pt-4 flex-row justify-center'>
                                     {movie.providers && movie.providers.US && (
@@ -88,7 +88,7 @@ export function MovieCard({ movie }) {
                                             name='heart'
                                             size={18}
                                             color='#5b21b6'
-                                            /*#8b5cf6*/ backgroundColor='transparent'
+                                            backgroundColor='transparent'
                                         />
                                     </Text>
                                 </>

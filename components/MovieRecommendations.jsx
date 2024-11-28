@@ -38,7 +38,7 @@ const MovieRecommendations = ({ movieId }) => {
 
     return (
         <>
-            {movies.length !== 0 ? (
+            {movies && movies.length !== 0 ? (
                 <View className='bg-zinc-950 h-96 border-y-2 border-zinc-800 mb-8'>
                     <Text className='text-white font-semibold text-center text-xl py-6'>
                         Recommendations:
