@@ -74,8 +74,7 @@ export default function MovieCardDetail() {
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         color: 'white',
-                        fontSize: 26,
-                        fontWeight: 'bold',
+                        fontSize: 20,
                     },
                     headerStyle: {
                         backgroundColor: 'transparent',
@@ -95,8 +94,8 @@ export default function MovieCardDetail() {
                     onPressOut={switchTextVisibility}
                 >
                     {!isTextVisible ? (
-                        <View className='border-r-4 bg-lime-600 border-white absolute z-10 mx-1 rounded-full w-24 h-24 items-center justify-center'>
-                            <Text className='text-base font-bold text-center text-white'>
+                        <View className='border-r-2 bg-lime-600 ml-2 border-white absolute z-10 rounded-full w-20 h-20 items-center justify-center'>
+                            <Text className='text-sm font-bold text-center text-white'>
                                 Rating:
                             </Text>
                             <Text className='text-4xl font-extrabold text-center text-white'>
@@ -104,8 +103,8 @@ export default function MovieCardDetail() {
                             </Text>
                         </View>
                     ) : (
-                        <View className='bg-zinc-900 border-r-4 border-white absolute z-10 mx-1 rounded-full w-24 h-24 items-center justify-center'>
-                            <Text className='text-base font-bold text-center text-white'>
+                        <View className='bg-zinc-900 border-r-2 ml-2 border-white absolute z-10 rounded-full w-20 h-20 items-center justify-center'>
+                            <Text className='text-sm font-bold text-center text-white'>
                                 Votes:
                             </Text>
                             <Text className='text-3xl font-extrabold text-center text-white'>
@@ -114,7 +113,7 @@ export default function MovieCardDetail() {
                         </View>
                     )}
                     <Image
-                        className='text-white'
+                        className='text-white mt-2'
                         alt={movie.title}
                         source={{
                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
@@ -128,10 +127,10 @@ export default function MovieCardDetail() {
                         }}
                     ></Image>
                 </Pressable>
-                <View className='absolute ml-72 mt-2'>
+                <View className='absolute ml-72 mt-4'>
                     <AddToWatchList movie={movie} />
                 </View>
-                <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-lg border-b border-zinc-200'>
+                <Text className='text-2xl mx-4 p-6 font-semibold italic text-center text-zinc-200 rounded-xl border-b border-zinc-200'>
                     {movie.tagline}
                 </Text>
                 <Text className='text-base font-light p-2 text-white text-center'>
@@ -150,7 +149,7 @@ export default function MovieCardDetail() {
                     {movie.genres.map((genre) => (
                         <Text
                             key={genre.id}
-                            className='p-2 text-base m-2 border border-white rounded-lg text-white'
+                            className='p-2 text-base m-2 border border-violet-300 rounded-lg text-violet-300'
                         >
                             {genre.name}
                         </Text>
@@ -160,7 +159,7 @@ export default function MovieCardDetail() {
                     {movie.providers && movie.providers.US ? (
                         <MovieProvider movie={movie} />
                     ) : (
-                        <Text className='text-xl font-thin text-white'>
+                        <Text className='text-base font-thin text-white'>
                             No providers found for this title
                         </Text>
                     )}

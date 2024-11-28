@@ -30,7 +30,7 @@ const MovieRecommendations = ({ movieId }) => {
 
     if (error) {
         return (
-            <Text className='text-xl font-thin text-white'>
+            <Text className='text-base font-thin text-white'>
                 No recommendations found for this title
             </Text>
         );
@@ -39,7 +39,7 @@ const MovieRecommendations = ({ movieId }) => {
     return (
         <>
             {movies.length !== 0 ? (
-                <View className='bg-zinc-950 h-96 p-2 border-y-2 border-zinc-800 mb-8'>
+                <View className='bg-zinc-950 h-96 border-y-2 border-zinc-800 mb-8'>
                     <Text className='text-white font-semibold text-center text-xl py-6'>
                         Recommendations:
                     </Text>
@@ -48,7 +48,7 @@ const MovieRecommendations = ({ movieId }) => {
                         data={movies}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item, index }) => (
-                            <Link className='m-2' href={`/${item.id}`}>
+                            <Link className='m-4' href={`/${item.id}`}>
                                 <View>
                                     <Image
                                         key={index}

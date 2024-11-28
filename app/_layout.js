@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import Icon from 'react-native-vector-icons/FontAwesome6';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WatchListProvider } from '../components/WatchListContext';
 
 export default function Layout() {
@@ -10,11 +10,11 @@ export default function Layout() {
 
     const WatchListButton = () => (
         <Icon.Button
-            name='heart-circle-check'
-            size={30}
+            name='playlist-edit'
+            size={40}
             color='#8b5cf6'
-            backgroundColor='black'
-            borderRadius={15}
+            backgroundColor='transparent'
+            borderRadius={100}
             onPress={() => router.push('/watchList')}
             style={{ marginRight: 0, borderColor: '#c7246a', border: 3 }}
             iconStyle={{ marginRight: 0 }}
@@ -23,7 +23,7 @@ export default function Layout() {
 
     return (
         <WatchListProvider>
-        <View className='bg-black h-full pt-4'>
+        <View className='bg-black h-full pt-2'>
             <Stack
                 screenOptions={{
                     headerStyle: {
