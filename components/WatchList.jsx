@@ -8,7 +8,7 @@ import {
     ScrollView,
     Pressable,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import IconMeh from 'react-native-vector-icons/AntDesign';
 
 const WatchList = (watchList) => {
 
@@ -24,17 +24,12 @@ const WatchList = (watchList) => {
     };
 
     return (
-        <ScrollView onScroll={handleScroll} className='min-h-full min-w-full px-2 py-2 bg-black'>
+        <ScrollView onScroll={handleScroll} className='min-h-full min-w-full px-2 py-2 bg-black align-middle'>
             <Stack.Screen
                 options={{
-                    headerTitle: 'My watchlist 🍿',
+                    headerTitle: () => 
+                        <Text className='text-white font-thin text-xl'>MY WATCHLIST</Text>,
                     headerTitleAlign: 'center',
-                    headerTitleStyle: {
-                        color: 'white',
-                        fontSize: 24,
-                        fontWeight: 'bold',
-                        
-                    },
                     headerStyle: {
                         backgroundColor: 'transparent',
                     },
@@ -58,7 +53,7 @@ const WatchList = (watchList) => {
 
             {watchList.length === 0 ? (
                 <View className='py-36 px-8 text-center justify-center'>
-                    <Icon
+                    <IconMeh
                         name='meho'
                         size={50}
                         color='#a78bfa'
@@ -70,7 +65,7 @@ const WatchList = (watchList) => {
                     <Text className='text-white font-thin text-center text-xl py-2'>
                         Add some movies or shows to start watching.
                     </Text>
-                    <Link asChild href='./'>
+                    <Link asChild href='../'>
                         <Text className='text-violet-400 font-bold text-center text-xl py-24'>
                             Go back to search page
                         </Text>
