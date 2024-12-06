@@ -1,10 +1,11 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { Stack, useFocusEffect, useLocalSearchParams } from 'expo-router';
+import React, { useCallback, useState } from 'react';
 import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import AddToWatchList from '../components/AddToWatchList';
 import Loading from '../components/Loading';
 import MovieProvider from '../components/MovieProvider';
 import MovieRecommendations from '../components/MovieRecommendations';
+import WatchListButton from '../components/WatchListButton';
 import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
 
 export default function MovieCardDetail() {
@@ -16,24 +17,26 @@ export default function MovieCardDetail() {
     const [isTextVisible, setIsTextVisible] = useState(false);
     const [isHeaderVisible, setHeaderVisible] = useState(true);
 
-    useEffect(() => {
-        const getMovie = async () => {
-            try {
-                const data = await searchMovieById(id);
-                if (data) {
-                    data.providers = await fetchWatchProviders(data.id);
-                    setMovie(data);
-                } else {
-                    console.error('No movie data found');
+    useFocusEffect(
+        useCallback(() => {
+            const getMovie = async () => {
+                try {
+                    const data = await searchMovieById(id);
+                    if (data) {
+                        data.providers = await fetchWatchProviders(data.id);
+                        setMovie(data);
+                    } else {
+                        console.error('No movie data found');
+                    }
+                } catch (error) {
+                    console.error('Error fetching movie:', error);
+                } finally {
+                    setLoading(false);
                 }
-            } catch (error) {
-                console.error('Error fetching movie:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        getMovie();
-    }, [id]);
+            };
+            getMovie();
+        }, [id])
+    );
 
     const handleScroll = (event) => {
         const scrollOffsetY = event.nativeEvent.contentOffset.y;
@@ -79,7 +82,11 @@ export default function MovieCardDetail() {
                         backgroundColor: 'transparent',
                     },
                     headerTransparent: true,
-                    headerRight: () => null,
+                    headerRight: () => (
+                        <View style={{ margin: 10 }}>
+                            <WatchListButton />
+                        </View>
+                    ),
                     headerShown: isHeaderVisible,
                 }}
             />
@@ -98,7 +105,8 @@ export default function MovieCardDetail() {
                                 Rating:
                             </Text>
                             <Text className='text-4xl font-extrabold text-center text-white'>
-                                {movie.vote_average && movie.vote_average.toFixed(1)}
+                                {movie.vote_average &&
+                                    movie.vote_average.toFixed(1)}
                             </Text>
                         </View>
                     ) : (
@@ -133,7 +141,8 @@ export default function MovieCardDetail() {
                     {movie.tagline && movie.tagline}
                 </Text>
                 <Text className='text-base font-light p-2 text-white text-center'>
-                    {movie.release_date && `Release date: ${formatDate(movie.release_date)}`}
+                    {movie.release_date &&
+                        `Release date: ${formatDate(movie.release_date)}`}
                 </Text>
 
                 <View className='p-8 mt-2'>
@@ -145,14 +154,15 @@ export default function MovieCardDetail() {
                     </Text>
                 </View>
                 <View className='flex-row flex-wrap p-2 text-white justify-center'>
-                    {movie.genres && movie.genres.map((genre) => (
-                        <Text
-                            key={genre.id}
-                            className='p-2 text-base m-2 border border-violet-300 rounded-lg text-violet-300'
-                        >
-                            {genre.name}
-                        </Text>
-                    ))}
+                    {movie.genres &&
+                        movie.genres.map((genre) => (
+                            <Text
+                                key={genre.id}
+                                className='p-2 text-base m-2 border border-violet-300 rounded-lg text-violet-300'
+                            >
+                                {genre.name}
+                            </Text>
+                        ))}
                 </View>
                 <View className='flex-row justify-center bg-black p-8'>
                     {movie.providers && movie.providers.US ? (

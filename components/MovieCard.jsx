@@ -1,5 +1,5 @@
-import { Link } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import { Link, useFocusEffect } from 'expo-router';
+import React, { useCallback, useRef, useState } from 'react';
 import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MovieProvider from './MovieProvider';
@@ -14,9 +14,10 @@ export function MovieCard({ movie }) {
 
     const switchTextVisibility = () => setIsTextVisible(!isTextVisible);
 
-    useEffect(() => {
-        setAddWatchListButton(isMovieInWatchList(movie));
-    }, [isMovieInWatchList, movie]);
+    useFocusEffect(
+        useCallback(() => {
+            setAddWatchListButton(isMovieInWatchList(movie));
+    }, [isMovieInWatchList, movie]))
 
     return (
         <View key={movie.title} className='items-center p-2 m-6 bg-zinc-950'>
@@ -115,14 +116,14 @@ export function MovieCard({ movie }) {
 export function AnimatedMovieCard({ movie, index }) {
     const opacity = useRef(new Animated.Value(0)).current;
 
-    useEffect(() => {
+    useFocusEffect(() => {
         Animated.timing(opacity, {
             toValue: 1,
             duration: 1000,
             delay: index * 300,
             useNativeDriver: true,
         }).start();
-    }, [opacity, index]);
+    });
 
     return (
         <Animated.View style={{ opacity }}>

@@ -1,5 +1,5 @@
-import { Link, Stack } from 'expo-router';
-import React from 'react';
+import { Link, Stack, useFocusEffect } from 'expo-router';
+import React, { useState, useCallback } from 'react';
 import {
     ImageBackground,
     Pressable,
@@ -10,13 +10,18 @@ import {
 import IconMeh from 'react-native-vector-icons/AntDesign';
 import { useWatchList } from './WatchListContext';
 
-const WatchList = (watchList) => {
-    const [isHeaderVisible, setHeaderVisible] = React.useState(true);
-    const { getWatchList, clearWatchList, getWatchListCount, removeFromList } =
-        useWatchList();
+const WatchList = () => {
+    const [isHeaderVisible, setHeaderVisible] = useState(true);
+    const { getWatchList, clearWatchList, getWatchListCount, removeFromList } = useWatchList();
+    const [watchList, setWatchList] = useState(getWatchList());
 
-    watchList = getWatchList();
     const isWatchListEmpty = getWatchListCount() === 0;
+
+    useFocusEffect(
+        useCallback(() => {
+            setWatchList(getWatchList());
+        }, [getWatchList])
+    );
 
     const handleScroll = (event) => {
         const scrollOffsetY = event.nativeEvent.contentOffset.y;
@@ -82,7 +87,7 @@ const WatchList = (watchList) => {
                     </Link>
                 </View>
             ) : (
-                <View className='flex-row flex-wrap justify-around py-16 px-4 '>
+                <View className='flex-row flex-wrap justify-around py-16 px-6 '>
                     {watchList.map((movie, index) => (
                         <View key={index} className='py-1'>
                             <Link asChild href={`./${movie.id}`}>
@@ -95,8 +100,8 @@ const WatchList = (watchList) => {
                                             uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                                         }}
                                         style={{
-                                            width: 330 / 3,
-                                            height: 480 / 3,
+                                            width: 330 / 2,
+                                            height: 480 / 2,
                                         }}
                                     ></ImageBackground>
                                 </Pressable>

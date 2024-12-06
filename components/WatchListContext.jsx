@@ -4,6 +4,10 @@ export const WatchListContext = createContext({});
 
 export const WatchListProvider = ({ children }) => {
     const [watchList, setWatchList] = useState([]);
+    
+    const getWatchList = () => {
+        return watchList;
+    };
 
     const clearWatchList = () => {
         setWatchList([]);
@@ -12,13 +16,11 @@ export const WatchListProvider = ({ children }) => {
     const addToList = (movie) => {
         if (!isMovieInWatchList(movie)) {
             setWatchList([...watchList, movie]);
-            console.log('Adding from watch list: ', movie);
         }
     };
 
     const removeFromList = (movie) => {
-        setWatchList(watchList.filter((item) => item !== movie));
-        console.log('Removing from watch list: ', movie);
+        setWatchList(watchList.filter((item) => item.id !== movie.id));
     };
 
     const isMovieInWatchList = (movie) => {
@@ -31,10 +33,6 @@ export const WatchListProvider = ({ children }) => {
         } else {
             addToList(movie);
         }
-    };
-
-    const getWatchList = () => {
-        return watchList;
     };
 
     const getWatchListCount = () => {
