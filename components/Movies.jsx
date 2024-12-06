@@ -75,15 +75,15 @@ const Movies = () => {
     };
 
     return (
-        <View className='pl-2 pr-2 items-center bg-black'>
+        <View className='px-2 py-2 items-center bg-black'>
             {searchVisible ? (
-                <View className='flex-row items-center justify-center p-2'>
+                <View className='flex-row items-center justify-center p-1 bg-black rounded-lg'>
                     <TextInput
                         placeholder='Search for movie or actor'
                         placeholderTextColor={'grey'}
                         value={query}
                         onChangeText={setQuery}
-                        className='py-2 mx-2 w-2/3 text-center text-white'
+                        className='mx-2 w-2/3 text-center text-white'
                         style={{
                             borderBottomColor: 'grey',
                             borderBottomWidth: 1,
@@ -100,12 +100,10 @@ const Movies = () => {
                     </Pressable>
                 </View>
             ) : (
-                <View className='fixed z-20 top-3/4 left-36'>
+                <View className='fixed z-20 -bottom-3/4 left-36'>
                     <ScrollToTopButton />
                 </View>
             )}
-
-            <View className='pl-2 pr-2 items-center bg-black'>
                 <FlatList
                     ref={flatListRef}
                     onScroll={toggleSearchVisibility}
@@ -116,7 +114,6 @@ const Movies = () => {
                     )}
                 />
             </View>
-        </View>
     );
 };
 

@@ -20,7 +20,7 @@ export function MovieCard({ movie }) {
     }, [isMovieInWatchList, movie]))
 
     return (
-        <View key={movie.title} className='items-center p-2 m-6 bg-zinc-950'>
+        <View key={movie.title} className='items-center p-2 m-2 bg-zinc-950'>
             <Pressable
                 onPressIn={switchTextVisibility}
                 onPressOut={switchTextVisibility}
