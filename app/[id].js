@@ -68,7 +68,7 @@ export default function MovieCardDetail() {
     return (
         <View
             key={id}
-            className='min-h-full min-w-full px-4 py-4 bg-black items-center'
+            className='min-h-full min-w-full px-4 py-6 bg-black items-center'
         >
             <Stack.Screen
                 options={{

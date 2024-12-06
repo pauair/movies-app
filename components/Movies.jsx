@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     fetchAllMovies,
     fetchWatchProviders,
@@ -12,7 +13,9 @@ const Movies = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [query, setQuery] = useState('');
-    const [isVisibleSearch, setIsVisibleSearch] = useState(true); 
+    const [searchVisible, setSearchVisible] = useState(true);
+    
+    const flatListRef = useRef(null);
 
     useEffect(() => {
         const getAllMovies = async () => {
@@ -46,35 +49,66 @@ const Movies = () => {
         return <Loading />;
     }
 
-    const handleSearchVisibility = (event) => {
+    const toggleSearchVisibility = (event) => {
         const scrollOffsetY = event.nativeEvent.contentOffset.y;
-        setIsVisibleSearch(scrollOffsetY <= 180);
-    }
+        setSearchVisible(scrollOffsetY <= 180);
+    };
+
+    const ScrollToTopButton = () => {
+        return (
+            <Icon.Button
+                name='angle-double-up'
+                size={34}
+                color='#4c1d95'
+                backgroundColor='white'
+                borderRadius={80}
+                onPress={() => {
+                        flatListRef.current.scrollToOffset({
+                            offset: 0,
+                            animated: true,
+                        });
+                }}
+                style={{ marginHorizontal: 0 }}
+                iconStyle={{ marginHorizontal: 8, marginVertical: 2 }}
+            />
+        );
+    };
 
     return (
         <View className='pl-2 pr-2 items-center bg-black'>
-            {isVisibleSearch && <View className='flex-row items-center justify-center p-2'>
-                <TextInput
-                    placeholder='Search for movie or actor'
-                    placeholderTextColor={'grey'}
-                    value={query}
-                    onChangeText={setQuery}
-                    className='py-2 mx-2 w-2/3 text-center text-white'
-                    style={{ borderBottomColor: 'grey', borderBottomWidth: 1 }}
-                />
-                <Pressable
-                    className='rounded-md bg-white p-2'
-                    onPress={handleSearch}
-                    disabled={query === ''}
-                >
-                    <Text className='text-sm font-medium text-violet-900'>
-                        SEARCH
-                    </Text>
-                </Pressable>
-            </View>}
+            {searchVisible ? (
+                <View className='flex-row items-center justify-center p-2'>
+                    <TextInput
+                        placeholder='Search for movie or actor'
+                        placeholderTextColor={'grey'}
+                        value={query}
+                        onChangeText={setQuery}
+                        className='py-2 mx-2 w-2/3 text-center text-white'
+                        style={{
+                            borderBottomColor: 'grey',
+                            borderBottomWidth: 1,
+                        }}
+                    />
+                    <Pressable
+                        className='rounded-md bg-white p-2'
+                        onPress={handleSearch}
+                        disabled={query === ''}
+                    >
+                        <Text className='text-sm font-medium text-violet-900'>
+                            SEARCH
+                        </Text>
+                    </Pressable>
+                </View>
+            ) : (
+                <View className='fixed z-20 top-3/4 left-36'>
+                    <ScrollToTopButton />
+                </View>
+            )}
+
             <View className='pl-2 pr-2 items-center bg-black'>
                 <FlatList
-                    onScroll={handleSearchVisibility}
+                    ref={flatListRef}
+                    onScroll={toggleSearchVisibility}
                     data={movies}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({ item, index }) => (
