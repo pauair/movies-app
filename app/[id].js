@@ -5,7 +5,6 @@ import AddToWatchList from '../components/AddToWatchList';
 import Loading from '../components/Loading';
 import MovieProvider from '../components/MovieProvider';
 import MovieRecommendations from '../components/MovieRecommendations';
-import WatchListButton from '../components/WatchListButton';
 import { fetchWatchProviders, searchMovieById } from '../lib/api-movies';
 
 export default function MovieCardDetail() {
@@ -82,11 +81,7 @@ export default function MovieCardDetail() {
                         backgroundColor: 'transparent',
                     },
                     headerTransparent: true,
-                    headerRight: () => (
-                        <View style={{ margin: 10 }}>
-                            <WatchListButton />
-                        </View>
-                    ),
+                    headerRight: () => null,
                     headerShown: isHeaderVisible,
                 }}
             />

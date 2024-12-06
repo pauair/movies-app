@@ -1,4 +1,4 @@
-import { Link, Stack, useFocusEffect } from 'expo-router';
+import { useRouter, Stack, useFocusEffect } from 'expo-router';
 import React, { useState, useCallback } from 'react';
 import {
     ImageBackground,
@@ -16,6 +16,7 @@ const WatchList = () => {
     const [watchList, setWatchList] = useState(getWatchList());
 
     const isWatchListEmpty = getWatchListCount() === 0;
+    const router = useRouter();
 
     useFocusEffect(
         useCallback(() => {
@@ -46,6 +47,7 @@ const WatchList = () => {
                     },
                     headerTransparent: true,
                     headerRight: () => null,
+                    headerLeft: () => null,
                     headerShown: isHeaderVisible,
                 }}
             />
@@ -80,18 +82,18 @@ const WatchList = () => {
                     <Text className='text-white font-thin text-center text-xl py-2'>
                         Add some movies or shows to start watching.
                     </Text>
-                    <Link asChild href='../'>
+                    <Pressable onPress={() => router.replace(`/`) } >
                         <Text className='text-violet-400 font-bold text-center text-xl py-24'>
                             Go back to search page
                         </Text>
-                    </Link>
+                    </Pressable>
                 </View>
             ) : (
                 <View className='flex-row flex-wrap justify-around py-16 px-6 '>
                     {watchList.map((movie, index) => (
                         <View key={index} className='py-1'>
-                            <Link asChild href={`./${movie.id}`}>
                                 <Pressable
+                                    onPress={() => router.push(`./${movie.id}`)}
                                     onLongPress={() => removeFromList(movie)}
                                 >
                                     <ImageBackground
@@ -105,7 +107,6 @@ const WatchList = () => {
                                         }}
                                     ></ImageBackground>
                                 </Pressable>
-                            </Link>
                         </View>
                     ))}
                 </View>

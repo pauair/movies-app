@@ -1,6 +1,6 @@
-import { Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { FlatList, Image, Pressable, Text, View } from 'react-native';
 import Loading from '../components/Loading';
 import { fetchMovieRecommendations } from '../lib/api-movies';
 
@@ -8,6 +8,7 @@ const MovieRecommendations = ({ movieId }) => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         const getRecommendations = async () => {
@@ -48,7 +49,7 @@ const MovieRecommendations = ({ movieId }) => {
                         data={movies}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item, index }) => (
-                            <Link className='m-4' href={`/${item.id}`}>
+                            <Pressable className='m-4' onPress={() => router.replace(`/${item.id}`)}>
                                 <View>
                                     <Image
                                         key={index}
@@ -59,7 +60,7 @@ const MovieRecommendations = ({ movieId }) => {
                                         style={{ width: 150, height: 230 }}
                                     />
                                 </View>
-                            </Link>
+                            </Pressable>
                         )}
                     />
                 </View>

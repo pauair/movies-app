@@ -8,7 +8,6 @@ import { WatchListProvider } from '../components/WatchListContext';
 export default function Layout() {
     return (
         <WatchListProvider>
-            <View className='bg-black h-full pt-2'>
                 <Stack
                     screenOptions={{
                         headerStyle: {
@@ -36,7 +35,6 @@ export default function Layout() {
                         headerTitleAlign: 'left',
                     }}
                 />
-            </View>
         </WatchListProvider>
     );
 }
