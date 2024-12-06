@@ -82,7 +82,7 @@ const WatchList = () => {
                     <Text className='text-white font-thin text-center text-xl py-2'>
                         Add some movies or shows to start watching.
                     </Text>
-                    <Pressable onPress={() => router.replace(`/`) } >
+                    <Pressable onPress={() => router.replace(`../`) } >
                         <Text className='text-violet-400 font-bold text-center text-xl py-24'>
                             Go back to search page
                         </Text>
