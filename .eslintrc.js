@@ -1,16 +1,21 @@
 const { rules } = require('eslint-config-prettier');
 
-// https://docs.expo.dev/guides/using-eslint/
 module.exports = {
   extends: ['expo', 'prettier'],
-  /*plugins: ['prettier'],
+  env: {
+    browser: true, // Para funciones globales del navegador como setTimeout
+    node: true, // Por si también utilizas Node.js
+    es6: true, // Habilita características de ES6
+  },
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        parser: 'flow',
-      },
-    ],
-  },*/
+    // Puedes descomentar esta parte si estás configurando reglas personalizadas para Prettier
+    // 'prettier/prettier': [
+    //   'error',
+    //   {
+    //     singleQuote: true,
+    //     parser: 'flow',
+    //   },
+    // ],
+  },
 };
+
