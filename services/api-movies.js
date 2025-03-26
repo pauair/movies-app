@@ -1,9 +1,7 @@
-import dotenv from 'dotenv';
+import Constants from 'expo-constants';
 
-dotenv.config();
-
-const API_KEY = process.env.TMDB_API_KEY;;
-const BASE_URL = process.env.TMDB_BASE_URL;
+const API_KEY = Constants.expoConfig.extra.tmdbApiKey;
+const BASE_URL = Constants.expoConfig.extra.tmdbApiUrl;
 
 const headers = {
     accept: 'application/json',
@@ -21,6 +19,8 @@ export const fetchAllMovies = async () => {
         return data.results;
     } catch (error) {
         console.error('Error fetching movies:', error);
+        console.log('API_KEY:', API_KEY);
+        console.log('BASE_URL:', BASE_URL); 
         return [];
     }
 };

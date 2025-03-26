@@ -1,10 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
-import dotenv from 'dotenv';
+import Constants from 'expo-constants';
 
-dotenv.config();
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = Constants.expoConfig.extra.supabaseUrl;
+const supabaseKey = Constants.expoConfig.extra.supabaseKey;
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 

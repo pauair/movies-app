@@ -1,7 +1,7 @@
 import { StatusBar, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import Movies from './components/Movies';
+import Movies from './components/movie/Movies';
 
 export default function App() {
     return (
