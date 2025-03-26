@@ -4,9 +4,11 @@ import { Text, View } from 'react-native';
 import FilmTrackerButton from '../components/common/FilmTrackerButton';
 import WatchListButton from '../components/watchList/WatchListButton';
 import { WatchListProvider } from '../components/watchList/WatchListContext';
+import { AuthProvider } from '../components/auth/AuthContext';
 
 export default function Layout() {
     return (
+        <AuthProvider>
         <WatchListProvider>
                 <Stack
                     screenOptions={{
@@ -36,5 +38,6 @@ export default function Layout() {
                     }}
                 />
         </WatchListProvider>
+        </AuthProvider>
     );
 }
