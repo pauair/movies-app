@@ -5,10 +5,11 @@ import { signUp } from '../../services/supabase.js';
 export default function RegisterForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [error, setError] = useState('');
     const handleRegister = async () => {
         try {
-        const user = await signUp(email, password);
+        const user = await signUp(name, email, password);
         console.log(user);
         } catch (error) {
         setError(error.message);
@@ -16,6 +17,12 @@ export default function RegisterForm() {
     };
     return (
         <>
+        <TextInput
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
+            keyboardType="default"
+        />
         <TextInput
             placeholder="Email"
             value={email}

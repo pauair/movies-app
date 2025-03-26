@@ -1,7 +1,11 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import RegisterForm from './RegisterForm';
 
 const Register = () => {
+
+  const router = useRouter();
+
   const handleRegister = (user) => {
     console.log(user);
   };
@@ -10,6 +14,9 @@ const Register = () => {
     <View>
       <Text>Register</Text>
       <RegisterForm onRegister={handleRegister} />
+      <Pressable onPress={() => router.replace('/login')}>
+        <Text>Already have an account? Login</Text>
+      </Pressable>
     </View>
   );
 };

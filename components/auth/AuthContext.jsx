@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     return () => {
       authListener.subscription.unsubscribe();
     };
-  }, []);
+  }, [router]);
 
   return (
     <AuthContext.Provider value={{ session, setSession }}>

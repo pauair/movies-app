@@ -7,8 +7,9 @@ const supabaseKey = Constants.expoConfig.extra.supabaseKey;
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // New user registration
-export const signUp = async (email, password) => {
+export const signUp = async (name, email, password) => {
     const { user, error } = await supabase.auth.signUp({
+      name,
       email,
       password,
     });
