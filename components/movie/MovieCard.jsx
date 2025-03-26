@@ -3,7 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Animated, ImageBackground, Pressable, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MovieProvider from './MovieProvider';
-import { useWatchList } from './WatchListContext';
+import { useWatchList } from '../watchList/WatchListContext'; ;
 
 export function MovieCard({ movie }) {
     const [isTextVisible, setIsTextVisible] = useState(false);

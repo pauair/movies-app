@@ -5,8 +5,8 @@ import {
     fetchAllMovies,
     fetchWatchProviders,
     searchMovieByName,
-} from '../lib/api-movies';
-import Loading from './Loading';
+} from '../../services/api-movies';
+import Loading from '../common/Loading';
 import { AnimatedMovieCard } from './MovieCard';
 
 const Movies = () => {

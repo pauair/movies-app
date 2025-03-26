@@ -1,9 +1,9 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 import { Text, View } from 'react-native';
-import FilmTrackerButton from '../components/FilmTrackerButton';
-import WatchListButton from '../components/WatchListButton';
-import { WatchListProvider } from '../components/WatchListContext';
+import FilmTrackerButton from '../components/common/FilmTrackerButton';
+import WatchListButton from '../components/watchList/WatchListButton';
+import { WatchListProvider } from '../components/watchList/WatchListContext';
 
 export default function Layout() {
     return (
