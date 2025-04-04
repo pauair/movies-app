@@ -11,11 +11,11 @@ const Register = () => {
   };
 
   return (
-    <View>
-      <Text>Register</Text>
+    <View className='bg-black h-full items-center'>
+      <Text className='text-white font-bold text-xl my-16'>Create an account</Text>
       <RegisterForm onRegister={handleRegister} />
       <Pressable onPress={() => router.replace('/login')}>
-        <Text>Already have an account? Login</Text>
+        <Text className='text-white mt-8 text-base' >Already have an account? Login</Text>
       </Pressable>
     </View>
   );

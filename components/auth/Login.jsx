@@ -11,11 +11,11 @@ const Login = () => {
     };
 
     return (
-      <View>
-          <Text>Login</Text>
+        <View className='bg-black h-full items-center'>
+          <Text className='text-white font-bold text-xl my-16'>Log in to your account</Text>
           <LoginForm onLogin={handleLogin} />
           <Pressable onPress={() => router.replace('/register')}>
-              <Text> Don't have an account? Register</Text>
+              <Text className='text-white mt-8 text-base'> Don't have an account? Register</Text>
           </Pressable>
       </View>
     );
