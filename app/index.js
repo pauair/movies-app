@@ -3,25 +3,24 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '../components/auth/AuthContext';
 
 export default function Index() {
-  const { session } = useAuth();
-  const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
+    const { session } = useAuth();
+    const router = useRouter();
+    const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => setIsMounted(true), 100);
-    return () => clearTimeout(timeout);
-  }, []);
+    useEffect(() => {
+        const timeout = setTimeout(() => setIsMounted(true), 100);
+        return () => clearTimeout(timeout);
+    }, []);
 
-  useEffect(() => {
+    useEffect(() => {
+        if (!isMounted) return;
 
-    if ((!isMounted)) return;
+        if (session) {
+            router.replace('/movies');
+        } else {
+            router.replace('/login');
+        }
+    }, [session, isMounted, router]);
 
-    if (session) {
-      router.replace('/movies');
-    } else {
-      router.replace('/login');
-    }
-  }, [session, isMounted, router]);
-
-  return null;
+    return null;
 }

@@ -6,8 +6,9 @@ const Login = () => {
 
     const router = useRouter();
 
-    const handleLogin = (user) => {
-        console.log(user);
+    const handleLogin = ({ user }) => {
+        console.log('Logged in user', user);
+        router.replace('/movies');
     };
 
     return (
